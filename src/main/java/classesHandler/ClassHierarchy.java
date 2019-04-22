@@ -3,7 +3,9 @@ package classesHandler;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.util.iterator.ExtendedIterator;
+import tools.enums.fileHandler.FileParser;
 import tools.enums.NSEnum;
+import tools.enums.fileHandler.TempResource;
 
 import java.util.*;
 
@@ -30,7 +32,7 @@ public class ClassHierarchy {
         String fileURL="data/classHierarchy.txt";
         List<TempResource> resources=null;
         try {
-            resources=FileParser.parseFile(fileURL);
+            resources= FileParser.parseFile(fileURL);
             FileParser.printAllTempResources(resources);
         }catch (Exception e){
             e.printStackTrace();
@@ -92,14 +94,12 @@ public class ClassHierarchy {
      * @Date: 10:06 2019/4/21
      * @Return:
      *
-     * @Description: 根据标签和父类来获取对应类
+     * @Description: 根据标签来获取对应类(假定类的标签均不同)
      */
-    public static OntClass getClassByLable(String label,OntModel model,OntClass parent){
-        if (parent==null){
-            return model.listClasses().next();
-        }
+    public static OntClass getClassByLabel(String label,OntModel model){
+
         OntClass findedClass=null;
-        for (Iterator<OntClass> iterator = parent.listSubClasses(true); iterator.hasNext();){
+        for (Iterator<OntClass> iterator = model.listClasses(); iterator.hasNext();){
             findedClass=iterator.next();
             if (findedClass.getLabel(NSEnum.LANGUAGE.getNs()).equals(label)){
                 break;
@@ -107,5 +107,6 @@ public class ClassHierarchy {
         }
         return findedClass;
     }
+
 
 }

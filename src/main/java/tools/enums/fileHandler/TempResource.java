@@ -1,4 +1,4 @@
-package classesHandler;
+package tools.enums.fileHandler;
 
 import lombok.Data;
 

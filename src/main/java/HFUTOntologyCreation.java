@@ -16,15 +16,22 @@ public class HFUTOntologyCreation {
 
     public static void main(String[] args) {
 
-        //新建模型
+        /**
+         * 新建模型
+         */
         OntModel model= ModelFactory.createOntologyModel();
-        //创建类层次结构
+        /**
+         * 创建类层次结构
+         */
         ClassHierarchy.createClassHierarchy(model);
-        //输出model中的所有的类
+        /**
+         * 输出model中的所有的类
+         */
         ClassHierarchy.printAllClasses(model);
 
         /*ClassHierarchy_ini.createClassHierarchy(model);
         ClassHierarchy_ini.printAllClasses(model);*/
+
 
 
 

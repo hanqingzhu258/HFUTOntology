@@ -5,6 +5,7 @@ import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.ModelFactory;
 import propertiesHandler.DatatypePropertyHierarchy;
 import propertiesHandler.ObjectPropertyHierarchy;
+import propertiesHandler.SpecialPropertyHandler;
 
 
 /**
@@ -26,24 +27,26 @@ public class HFUTOntologyCreation {
          * 创建类层次结构
          */
         ClassHierarchy.createClassHierarchy(model);
-
-        /*ClassHierarchy_ini.createClassHierarchy(model);
-        ClassHierarchy_ini.printAllClasses(model);*/
-
         /**
          * 创建对象属性层次结构
          */
         ObjectPropertyHierarchy.createObjectPropertyHierarchy(model);
-
         /**
          * 创建数据属性层次结构
          */
         DatatypePropertyHierarchy.createDataPropertyHierarchy(model);
-
+        /**
+         * 处理特殊属性关系（inverseof,symmetric,transitive,functional,inverseFunctional等）
+         */
+        SpecialPropertyHandler.handleSpecialProperties(model);
         /**
          *输出所有资源
          */
         printAllResources(model);
+
+        /**
+         * 增加实体处理
+         */
 
     }
 

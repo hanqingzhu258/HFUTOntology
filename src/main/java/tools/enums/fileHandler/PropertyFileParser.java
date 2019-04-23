@@ -1,5 +1,7 @@
 package tools.enums.fileHandler;
 
+import dataHandler.FileHandler;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -30,9 +32,7 @@ public class PropertyFileParser {
      *解析属性文档
      */
     public static List<TempPropertyResource> parseFile(String url) throws Exception {
-        ClassLoader classLoader = FileParser.class.getClassLoader();
-        File file = new File(classLoader.getResource(url).getFile());
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+        BufferedReader reader = FileHandler.getBufferedReader(url);
         //存放每行的信息
         List<TempPropertyResource> tempResources=new ArrayList<TempPropertyResource>();
         TempPropertyResource tr1=null;

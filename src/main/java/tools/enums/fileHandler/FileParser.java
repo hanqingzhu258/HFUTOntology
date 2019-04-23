@@ -1,5 +1,7 @@
 package tools.enums.fileHandler;
 
+import dataHandler.FileHandler;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +30,7 @@ public class FileParser {
      *解析类文档
      */
     public static List<TempResource> parseFile(String url) throws Exception {
-        ClassLoader classLoader = FileParser.class.getClassLoader();
-        File file = new File(classLoader.getResource(url).getFile());
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+        BufferedReader reader = FileHandler.getBufferedReader(url);
         //存放每行的信息
         List<TempResource> tempResources=new ArrayList<TempResource>();
         TempResource tr1=null;

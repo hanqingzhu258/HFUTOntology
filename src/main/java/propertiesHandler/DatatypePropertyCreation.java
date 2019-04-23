@@ -1,5 +1,6 @@
 package propertiesHandler;
 
+import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
@@ -14,7 +15,7 @@ import java.util.UUID;
  * @Date: 9:45 2019/4/22
  * @Description:
  */
-public class ObjectPropertyCreation {
+public class DatatypePropertyCreation {
 
     /**
      * @Author: hanqing zhu
@@ -29,36 +30,36 @@ public class ObjectPropertyCreation {
      *        parent 父属性
      * @Description:
      */
-    public static ObjectProperty createObjectProperty(String label, String pre, String suf, OntModel model,
-                                                      OntClass domain, OntClass range, ObjectProperty parent){
+    public static DatatypeProperty createDatatypeProperty(String label, String pre, String suf, OntModel model,
+                                                        OntClass domain, OntClass range, DatatypeProperty parent){
         String pid= UUID.randomUUID().toString();
         /**
          *创建新的对象属性
          */
-        ObjectProperty objectProperty=model.createObjectProperty(pre+pid+suf);
+        DatatypeProperty datatypeProperty=model.createDatatypeProperty(pre+pid+suf);
         /**
          *设置对象属性标签
          */
-        objectProperty.setLabel(label, NSEnum.LANGUAGE.getNs());
+        datatypeProperty.setLabel(label, NSEnum.LANGUAGE.getNs());
         /**
          *设置父属性
          */
         if (parent!=null) {
-            objectProperty.addSuperProperty(parent);
+            datatypeProperty.addSuperProperty(parent);
         }
         /**
          *设置domain域
          */
         if (domain!=null) {
-            objectProperty.setDomain(domain);
+            datatypeProperty.setDomain(domain);
         }
         /**
          *设置range域
          */
         if (range!=null) {
-            objectProperty.setRange(range);
+            datatypeProperty.setRange(range);
         }
-        return objectProperty;
+        return datatypeProperty;
     }
 
 }

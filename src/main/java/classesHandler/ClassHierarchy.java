@@ -33,7 +33,7 @@ public class ClassHierarchy {
         List<TempResource> resources=null;
         try {
             resources= FileParser.parseFile(fileURL);
-            FileParser.printAllTempResources(resources);
+            /*FileParser.printAllTempResources(resources);*/
         }catch (Exception e){
             e.printStackTrace();
         }

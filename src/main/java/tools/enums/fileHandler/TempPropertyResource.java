@@ -10,13 +10,20 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class TempPropertyResource extends TempResource{
+public class TempPropertyResource {
+    private int line;
+    private int deep;
+    private String labelText;
+    private TempPropertyResource parent;
+    private String domainClassLabel;
+    private String rangeClassLabel;
 
-    String domainClassLabel;
-    String rangeClassLabel;
-
-    public TempPropertyResource(int line, int deep, String labelText, TempResource parent, String domainClassLabel, String rangeClassLabel) {
-        super(line, deep, labelText, parent);
+    public TempPropertyResource(int line, int deep, String labelText, TempPropertyResource parent,
+                                String domainClassLabel, String rangeClassLabel) {
+        this.line = line;
+        this.deep = deep;
+        this.labelText = labelText;
+        this.parent = parent;
         this.domainClassLabel = domainClassLabel;
         this.rangeClassLabel = rangeClassLabel;
     }

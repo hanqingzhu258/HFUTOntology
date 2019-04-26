@@ -1,4 +1,4 @@
-package tools.enums.fileHandler;
+package tools.fileHandler;
 
 import lombok.Data;
 
@@ -10,9 +10,9 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class TempResource {
+public class TempClassResource {
 
-    public TempResource(int line, int deep, String labelText, TempResource parent) {
+    public TempClassResource(int line, int deep, String labelText, TempClassResource parent) {
         this.line = line;
         this.deep = deep;
         this.labelText = labelText;
@@ -22,6 +22,6 @@ public class TempResource {
     private int line;
     private int deep;
     private String labelText;
-    private TempResource parent;
+    private TempClassResource parent;
 
 }

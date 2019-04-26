@@ -1,56 +1,48 @@
-package tools.enums.fileHandler;
+package tools.fileHandler;
 
 import dataHandler.FileHandler;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @projectName: HFUTOntology
- * @packageName: tools.enums.fileHandler
+ * @packageName: tests
  * @Author: hanqing zhu
- * @Date: 9:54 2019/4/22
+ * @Date: 16:59 2019/4/21
  * @Description:
  */
-public class PropertyFileParser {
+public class ClassFileParser {
 
     /*public static void main(String[] args) {
-        String fileURL = "data/objectPropertyHierarchy.txt";
-        List<TempPropertyResource> resources=null;
+        String fileURL = "data/classHierarchy.txt";
+        List<TempClassResource> resources=null;
         try {
             resources=parseFile(fileURL);
         }catch (Exception e){
             e.printStackTrace();
         }
-        printAllTempPropertyResources(resources);
+        printAllTempResources(resources);
     }*/
 
     /**
-     *解析属性文档
+     *解析类文档
      */
-    public static List<TempPropertyResource> parseFile(String url) throws Exception {
+    public static List<TempClassResource> parseFile(String url) throws Exception {
         BufferedReader reader = FileHandler.getBufferedReader(url);
         //存放每行的信息
-        List<TempPropertyResource> tempResources=new ArrayList<TempPropertyResource>();
-        TempPropertyResource tr1=null;
-        TempPropertyResource tr2;
+        List<TempClassResource> tempResources=new ArrayList<TempClassResource>();
+        TempClassResource tr1=null;
+        TempClassResource tr2;
 
         //行文本
         String lineText;
-        //分隔数组
-        String [] tempLabel;
         //label
         String label;
-        //domainClassLabel
-        String domainLabel;
-        //rangeClassLabel
-        String rangeLabel;
         //行标
         int line=0;
-        //属性深度
+        //类深度
         int deep=0;
 
         while((lineText=reader.readLine())!=null){
@@ -65,26 +57,13 @@ public class PropertyFileParser {
                 }
                 break;
             }
-
-            tempLabel=lineText.substring(i,lineText.length()).split("：");
             //获取真正的标签内容
-            label=tempLabel[0];
-            if (tempLabel.length==1){
-                domainLabel=rangeLabel=null;
-            }else{
-                String temp[];
-                temp=tempLabel[1].split("-");
-                //获取domain域标签
-                domainLabel=temp[0];
-                //获取range域标签
-                rangeLabel=temp[1];
-            }
-
-            //计算属性深度
+            label=lineText.substring(i,lineText.length()-1);
+            //计算类深度
             deep=count/4;
             //当前行标
             line++;
-            //确定父属性
+            //确定父类
             if (tempResources.size()==0){
                 tr1=null;
             }else{
@@ -96,25 +75,24 @@ public class PropertyFileParser {
                 }
             }
             //创建新资源
-            tr2=new TempPropertyResource(line,deep,label,tr1,domainLabel,rangeLabel);
+            tr2=new TempClassResource(line,deep,label,tr1);
             tempResources.add(tr2);
         }
         return tempResources;
     }
 
     /**
-     *输出所有的tempPropertyResource资源
+     *输出所有的tempResource资源
      */
-    public static void printAllTempPropertyResources(List<TempPropertyResource> resources){
+    public static void printAllTempResources(List<TempClassResource> resources){
         if (resources.size()==0){
             System.out.println("暂无资源");
             return;
         }
 
-        for (TempPropertyResource resource:resources){
+        for (TempClassResource resource:resources){
             String prS="line "+resource.getLine()+":"+resource.getLabelText()+
-                    "---deep "+resource.getDeep()+"@domain:"+resource.getDomainClassLabel()+
-                    " @range:"+resource.getRangeClassLabel()+"---parent:";
+                    "---deep "+resource.getDeep()+"---parent:";
             if (resource.getParent()==null){
                 System.out.println(prS+"null");
             }else {
@@ -123,5 +101,4 @@ public class PropertyFileParser {
 
         }
     }
-
 }

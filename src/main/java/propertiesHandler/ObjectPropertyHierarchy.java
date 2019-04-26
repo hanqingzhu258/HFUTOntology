@@ -6,11 +6,10 @@ import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import tools.enums.NSEnum;
-import tools.enums.fileHandler.PropertyFileParser;
-import tools.enums.fileHandler.TempPropertyResource;
+import tools.fileHandler.PropertyFileParser;
+import tools.fileHandler.TempPropertyResource;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 

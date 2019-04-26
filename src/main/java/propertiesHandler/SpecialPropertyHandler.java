@@ -3,6 +3,7 @@ package propertiesHandler;
 import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntModel;
+import org.apache.jena.rdf.model.Property;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import tools.enums.NSEnum;
 
@@ -111,4 +112,5 @@ public class SpecialPropertyHandler {
         }
         return datatypeProperty;
     }
+
 }

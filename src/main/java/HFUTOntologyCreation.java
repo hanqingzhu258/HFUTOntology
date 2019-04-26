@@ -1,11 +1,14 @@
 import classesHandler.ClassCreation;
 import classesHandler.ClassHierarchy;
 import classesHandler.ClassHierarchy_ini;
+import individualsHandler.IndividualsHandler;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.ModelFactory;
 import propertiesHandler.DatatypePropertyHierarchy;
 import propertiesHandler.ObjectPropertyHierarchy;
 import propertiesHandler.SpecialPropertyHandler;
+
+import java.util.Map;
 
 
 /**
@@ -40,13 +43,13 @@ public class HFUTOntologyCreation {
          */
         SpecialPropertyHandler.handleSpecialProperties(model);
         /**
+         * 增加实体处理
+         */
+        IndividualsHandler.handleIndividuals(model);
+        /**
          *输出所有资源
          */
         printAllResources(model);
-
-        /**
-         * 增加实体处理
-         */
 
     }
 
@@ -61,15 +64,22 @@ public class HFUTOntologyCreation {
         /**
          * 输出model中的所有的类
          */
-        ClassHierarchy.printAllClasses(model);
-        /**
-         *输出model中的所有的对象属性
-         */
-        ObjectPropertyHierarchy.printAllObjectProperties(model);
-        /**
-         *输出model中的所有的数据属性
-         */
-        DatatypePropertyHierarchy.printAllDatatypeProperties(model);
+//        ClassHierarchy.printAllClasses(model);
+//        /**
+//         *输出model中的所有的对象属性
+//         */
+//        ObjectPropertyHierarchy.printAllObjectProperties(model);
+//        /**
+//         *输出model中的所有的数据属性
+//         */
+//        DatatypePropertyHierarchy.printAllDatatypeProperties(model);
+//        /**
+//         * 输出model中的所有个体
+//         */
+//        IndividualsHandler.printAllIndividuals(model);
+
+//        IndividualsHandler.printAllIndividualsOfClass(model,"学校现任领导");
+        IndividualsHandler.printAllIndividualsOfClass(model,"学校历任领导");
     }
 
 }

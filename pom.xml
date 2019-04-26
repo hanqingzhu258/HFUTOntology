@@ -39,6 +39,27 @@
             <version>1.7.24</version>
         </dependency>
 
+        <!--自定义爬虫工具-->
+        <!--<dependency>
+            <groupId>com.zxs</groupId>
+            <artifactId>simpleCrawlerStructure</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+-->
+        <!--html解析工具-->
+        <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.11.3</version>
+        </dependency>
+        <!--json解析工具-->
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.47</version>
+        </dependency>
 
     </dependencies>
 

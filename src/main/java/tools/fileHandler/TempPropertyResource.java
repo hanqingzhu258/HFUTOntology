@@ -1,10 +1,10 @@
-package tools.enums.fileHandler;
+package tools.fileHandler;
 
 import lombok.Data;
 
 /**
  * @projectName: HFUTOntology
- * @packageName: tools.enums.fileHandler
+ * @packageName: tools.fileHandler
  * @Author: hanqing zhu
  * @Date: 9:54 2019/4/22
  * @Description:

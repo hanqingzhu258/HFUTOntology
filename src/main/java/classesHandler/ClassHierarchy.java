@@ -3,9 +3,9 @@ package classesHandler;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.util.iterator.ExtendedIterator;
-import tools.enums.fileHandler.FileParser;
+import tools.fileHandler.ClassFileParser;
 import tools.enums.NSEnum;
-import tools.enums.fileHandler.TempResource;
+import tools.fileHandler.TempClassResource;
 
 import java.util.*;
 
@@ -30,10 +30,10 @@ public class ClassHierarchy {
          *解析文档获取相关类层次结构资源
          */
         String fileURL="data/classHierarchy.txt";
-        List<TempResource> resources=null;
+        List<TempClassResource> resources=null;
         try {
-            resources= FileParser.parseFile(fileURL);
-            /*FileParser.printAllTempResources(resources);*/
+            resources= ClassFileParser.parseFile(fileURL);
+            /*ClassFileParser.printAllTempResources(resources);*/
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -41,7 +41,7 @@ public class ClassHierarchy {
          * 通过tempResource和ontClass的映射关系，
          * 解决标签可能重复带来的父类不唯一问题。
          */
-        Map<TempResource,OntClass> map=new HashMap<TempResource, OntClass>();
+        Map<TempClassResource,OntClass> map=new HashMap<TempClassResource, OntClass>();
         /**
          *正式根据资源创建模型中类的层次结构
          */
@@ -55,11 +55,11 @@ public class ClassHierarchy {
      *
      * @Description: 根据解析出的文本资源，自动创建本体类结构
      */
-    public static void createClassHierarchyByResources(List<TempResource> resources,OntModel model,Map<TempResource,OntClass> map){
+    public static void createClassHierarchyByResources(List<TempClassResource> resources, OntModel model, Map<TempClassResource,OntClass> map){
         if (resources.size()==0){
             return;
         }
-        for (TempResource resource:resources){
+        for (TempClassResource resource:resources){
             //确认父类
             OntClass parent=null;
             if (resource.getParent()==null){

@@ -1,0 +1,15 @@
+教学实体：#jxst_po > ul > li > p > a
+党群部门：#dqbm_po > ul > li > p > a
+校务部：#xzglbm_po > ul:nth-child(1) > li > p > a
+人事处：#xzglbm_po > ul:nth-child(4) > li > p > a
+教务处：#xzglbm_po > ul:nth-child(6) > li > p > a
+研究生院：#xzglbm_po > ul:nth-child(8) > li > p > a
+科研院：#xzglbm_po > ul:nth-child(10) > li > p > a
+财务处：#xzglbm_po > ul:nth-child(12) > li > p > a
+总务处、总务处党委：#xzglbm_po > ul:nth-child(14) > li > p > a
+行政管理部门：#xzglbm_po > div:nth-child(15) > ul > li > p > a
+行政管理部门：#xzglbm_po > div:nth-child(16) > ul > li > p > a
+学术机构：#li_style2 > ul > li > p > a:nth-child(3)
+行政服务部门：#xzfwbm_po > ul > li > p > a
+直属单位：#zsdw_po > ul > li > p > a
+群众团体：#qztt_po > ul > li > p > a

@@ -50,10 +50,13 @@ public class IndividualFileParser {
             while ((lineText=reader.readLine())!=null){
                 texts=lineText.split("：");
                 IndividualSelectorData isd=new IndividualSelectorData(texts[0],texts[1],null);
+                isds.add(isd);
+//                System.out.println(isd.toString());
             }
         }catch (Exception e){
             e.printStackTrace();
         }
+//        System.out.println(isds.size());
         return isds;
     }
 

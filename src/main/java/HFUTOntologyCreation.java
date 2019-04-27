@@ -79,7 +79,9 @@ public class HFUTOntologyCreation {
 //        IndividualsHandler.printAllIndividuals(model);
 
 //        IndividualsHandler.printAllIndividualsOfClass(model,"学校现任领导");
-        IndividualsHandler.printAllIndividualsOfClass(model,"学校历任领导");
+//        IndividualsHandler.printAllIndividualsOfClass(model,"学校历任领导");
+//        IndividualsHandler.printAllIndividualsOfClass(model,"管理学院领导");
+        IndividualsHandler.printAllIndividualsOfClass(model,"管理学院教师");
     }
 
 }

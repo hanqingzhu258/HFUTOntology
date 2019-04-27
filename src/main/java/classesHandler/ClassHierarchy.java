@@ -99,13 +99,22 @@ public class ClassHierarchy {
     public static OntClass getClassByLabel(String label,OntModel model){
 
         OntClass findedClass=null;
-        for (Iterator<OntClass> iterator = model.listClasses(); iterator.hasNext();){
+        Iterator<OntClass> iterator=null;
+        for (iterator = model.listClasses(); iterator.hasNext();){
             findedClass=iterator.next();
             if (findedClass.getLabel(NSEnum.LANGUAGE.getNs()).equals(label)){
                 break;
             }
         }
-        return findedClass;
+        if (iterator.hasNext()){
+            return findedClass;
+        }else{
+            if (findedClass.getLabel(NSEnum.LANGUAGE.getNs()).equals(label)){
+                return findedClass;
+            }else{
+                return null;
+            }
+        }
     }
 
 

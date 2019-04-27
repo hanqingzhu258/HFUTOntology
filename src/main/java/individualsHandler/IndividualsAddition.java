@@ -9,6 +9,7 @@ import org.apache.jena.sparql.algebra.op.OpN;
 import org.jsoup.nodes.Document;
 import org.omg.PortableServer.LIFESPAN_POLICY_ID;
 import propertiesHandler.SpecialPropertyHandler;
+import tools.StringParser;
 import tools.data.IndividualSelectorData;
 import tools.enums.NSEnum;
 
@@ -24,6 +25,9 @@ import java.util.*;
 public class IndividualsAddition {
 
     /**
+     * --------------------------------------------通用方法---------------------------------
+     */
+    /**
      * @Author: hanqing zhu
      * @Date: 10:32 2019/4/24
      * @Return:
@@ -34,6 +38,9 @@ public class IndividualsAddition {
          * 获取个体对应的类
          */
         OntClass ontClass = ClassHierarchy.getClassByLabel(classLabel, model);
+        if (ontClass==null){
+            return null;
+        }
         /**
          * 创建个体
          */
@@ -44,6 +51,42 @@ public class IndividualsAddition {
         return individual;
     }
 
+    /**
+     * @Author: hanqing zhu
+     * @Date: 16:17 2019/4/26
+     * @Return:
+     *
+     * @Description: 类标签中包含多个现有类，并以split字符隔开，创建符合此类条件的个体Individual
+     */
+    public static Individual createMulClassIndividuals(OntModel model,String classLabel,String split,String label,String pre,String suf){
+        Individual individual=null;
+        if (classLabel.contains(split)){
+            String [] classes=classLabel.split(split);
+            individual=createIndividual(model,classes[0],label,pre,suf);
+            for (int i=1;i<classes.length;i++){
+                IndividualsHandler.putIndividualsToClass(model,classes[i],Arrays.asList(individual));
+            }
+        }else{
+            individual=createIndividual(model,classLabel,label,pre,suf);
+        }
+        return individual;
+    }
+
+    /**
+     * @Author: hanqing zhu
+     * @Date: 16:28 2019/4/26
+     * @Return:
+     *
+     * @Description: 向个体增加属性名为propertyLabel，属性值为propertyValue(字符串literal类型)的属性
+     */
+    public static void addDatatypePropertyToIndividual(Individual individual,OntModel model,String propertyLabel,String propertyValue){
+        DatatypeProperty property=SpecialPropertyHandler.getDatatypePropertyByLabel(propertyLabel,model);
+        individual.setPropertyValue(property,model.createLiteral(propertyValue));
+    }
+
+    /**
+     * ---------------------------------------------特定方法----------------------------------
+     */
     /**
      * 根据所属类别标签和选择器直接来增添个体
      */
@@ -159,35 +202,46 @@ public class IndividualsAddition {
 
     /**
      * @Author: hanqing zhu
-     * @Date: 16:17 2019/4/26
+     * @Date: 9:55 2019/4/27
      * @Return:
      * 
-     * @Description: 类标签中包含多个现有类，并以split字符隔开，创建符合此类条件的个体Individual
+     * @Description: 增添管理学院领导
      */
-    public static Individual createMulClassIndividuals(OntModel model,String classLabel,String split,String label,String pre,String suf){
-        Individual individual=null;
-        if (classLabel.contains(split)){
-            String [] classes=classLabel.split(split);
-            individual=createIndividual(model,classes[0],label,pre,suf);
-            for (int i=1;i<classes.length;i++){
-                IndividualsHandler.putIndividualsToClass(model,classes[i],Arrays.asList(individual));
+    public static List<Individual> addMSLeaders(OntModel model,List<IndividualSelectorData> data,Document document){
+        List<Individual> individuals=new ArrayList<Individual>();
+        for (IndividualSelectorData isd:data){
+            List<String> cat_names=Crawler.getSpecifiedContentInText(isd.getClassLabelSelector(),document);
+            List<String> responsibilities=Crawler.getSpecifiedContentInText(isd.getLabelSelector(),document);
+            for (int i=0;i<cat_names.size();i++){
+                String [] cat_name=cat_names.get(i).split("：");
+                String classLabel=cat_name[0];
+                String label=cat_name[1];
+                Individual individual=createMulClassIndividuals(model,classLabel,"、",label,NSEnum.HFUT.getNs(),"");
+                addDatatypePropertyToIndividual(individual,model,"职责",responsibilities.get(i));
+                individuals.add(individual);
             }
-        }else{
-            individual=createIndividual(model,classLabel,label,pre,suf);
+
         }
-        return individual;
+        return individuals;
     }
 
     /**
      * @Author: hanqing zhu
-     * @Date: 16:28 2019/4/26
+     * @Date: 22:22 2019/4/27
      * @Return:
-     * 
-     * @Description: 向个体增加属性名为propertyLabel，属性值为propertyValue(字符串literal类型)的属性
+     *
+     * @Description: 增加管理学院教师
      */
-    public static void addDatatypePropertyToIndividual(Individual individual,OntModel model,String propertyLabel,String propertyValue){
-        DatatypeProperty property=SpecialPropertyHandler.getDatatypePropertyByLabel(propertyLabel,model);
-        individual.setPropertyValue(property,model.createLiteral(propertyValue));
+    public static List<Individual> addMSTeachers(OntModel model,Map<String,List<String>> msts) {
+        List<Individual> individuals=new ArrayList<Individual>();
+        for (Map.Entry entry : msts.entrySet()) {
+            String classLabel= StringParser.removeBrackets((String) entry.getKey());
+            for (String label:(List<String>)entry.getValue()){
+                Individual individual=createIndividual(model,classLabel,label,NSEnum.HFUT.getNs(),"");
+                individuals.add(individual);
+            }
+        }
+        return individuals;
     }
 }
 

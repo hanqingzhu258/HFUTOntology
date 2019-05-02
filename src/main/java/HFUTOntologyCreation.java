@@ -1,13 +1,16 @@
 import classesHandler.ClassCreation;
 import classesHandler.ClassHierarchy;
 import classesHandler.ClassHierarchy_ini;
+import dataHandler.FileHandler;
 import individualsHandler.IndividualsHandler;
+import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.ModelFactory;
 import propertiesHandler.DatatypePropertyHierarchy;
 import propertiesHandler.ObjectPropertyHierarchy;
 import propertiesHandler.SpecialPropertyHandler;
 
+import java.io.BufferedWriter;
 import java.util.Map;
 
 
@@ -50,6 +53,10 @@ public class HFUTOntologyCreation {
          *输出所有资源
          */
         printAllResources(model);
+        /**
+         * 保存模型
+         */
+        saveModel(model);
 
     }
 
@@ -76,12 +83,30 @@ public class HFUTOntologyCreation {
 //        /**
 //         * 输出model中的所有个体
 //         */
-//        IndividualsHandler.printAllIndividuals(model);
+        IndividualsHandler.printAllIndividuals(model);
 
 //        IndividualsHandler.printAllIndividualsOfClass(model,"学校现任领导");
 //        IndividualsHandler.printAllIndividualsOfClass(model,"学校历任领导");
 //        IndividualsHandler.printAllIndividualsOfClass(model,"管理学院领导");
-        IndividualsHandler.printAllIndividualsOfClass(model,"管理学院教师");
+//        IndividualsHandler.printAllIndividualsOfClass(model,"管理学院教师");
+
     }
 
+    /**
+     * @Author: hanqing zhu
+     * @Date: 15:35 2019/4/28
+     * @Return:
+     *
+     * @Description: 保存model
+     */
+    public static void saveModel(OntModel model){
+        String fileUrl="E:/javalearn/HFUTOntology/src/main/resources/result/result.owl";
+        try {
+            BufferedWriter writer = FileHandler.getBufferedWriter(fileUrl);
+            model.write(writer);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
 }

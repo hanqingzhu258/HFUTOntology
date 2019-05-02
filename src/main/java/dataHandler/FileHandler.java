@@ -1,8 +1,6 @@
 package dataHandler;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 
 /**
  * @projectName: HFUTOntology
@@ -27,4 +25,22 @@ public class FileHandler {
         return reader;
     }
 
+    /**
+     * @Author: hanqing zhu
+     * @Date: 15:45 2019/4/28
+     * @Return:
+     *
+     * @Description: 获取相应的文件输出流，一次输出一行
+     */
+    public static BufferedWriter getBufferedWriter(String fileUrl) throws Exception{
+        File file = new File(fileUrl);
+        if (file.exists()){
+            file.mkdir();
+        }
+        if (!file.exists()){
+            file.createNewFile();
+        }
+        BufferedWriter writer=new BufferedWriter(new FileWriter(file));
+        return writer;
+    }
 }

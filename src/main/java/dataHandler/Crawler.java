@@ -1,7 +1,9 @@
 package dataHandler;
-import com.alibaba.fastjson.JSON;
+
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -10,8 +12,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import tools.data.StackList;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
@@ -26,10 +26,9 @@ import java.util.*;
 public class Crawler {
 
     /*public static void main(String[] args) {
-        String aimUrl = "http://www.hfut.edu.cn/5287/list.htm";
-        Document document= get(aimUrl);
-        List<String> contents=getSpecifiedContentInText("#jxst_po > ul > li > p > a",document);
-        System.out.println(contents.toString());
+
+        getHighAnonymousProxy();
+
     }*/
 
 
@@ -85,8 +84,27 @@ public class Crawler {
         String result = "";
         try{
             CloseableHttpClient httpclient = HttpClients.createDefault();
-            HttpGet httpget = new HttpGet(url);
-            CloseableHttpResponse response = httpclient.execute(httpget);
+            HttpGet httpGet = new HttpGet(url);
+            /**
+             * 设置请求头和代理信息
+             */
+//            HttpHost proxy = getHighAnonymousProxy();
+            RequestConfig requestConfig = RequestConfig.custom()
+//                    .setProxy(proxy)
+                    .setConnectTimeout(10000)
+                    .setSocketTimeout(10000)
+                    .setConnectionRequestTimeout(3000)
+                    .build();
+            httpGet.setConfig(requestConfig);
+            //设置请求头消息
+            httpGet.setHeader("User-Agent",
+                    "Mozilla/5.0 (Windows NT 10.0; WOW64) " +
+                            "AppleWebKit/537.36 (KHTML, like Gecko) " +
+                            "Chrome/62.0.3202.94 " +
+                            "Safari/537.36");
+
+
+            CloseableHttpResponse response = httpclient.execute(httpGet);
             try{
                 if (response != null && response.getStatusLine().getStatusCode()
                         == HttpStatus.SC_OK ){
@@ -136,7 +154,9 @@ public class Crawler {
         Elements elements=document.select(selector);
         for (Element element:elements){
             String eleContent=element.text();
-            contents.add(eleContent);
+            if (eleContent!=null){
+                contents.add(eleContent);
+            }
         }
         return contents;
     }
@@ -155,6 +175,39 @@ public class Crawler {
         String result=null;
 
         return result;
+    }
+
+    /**
+     * @Author: hanqing zhu
+     * @Date: 16:50 2019/5/2
+     * @Return:
+     *
+     * @Description: 获取代理ip：
+     *               参考链接：https://www.cnblogs.com/zhangyinhua/p/8038867.html
+     */
+    public static HttpHost getHighAnonymousProxy(){
+        HttpHost host=null;
+        Map<String,String> proxies=new HashMap<String, String>();
+        Document document=getHTML("https://www.xicidaili.com/");
+        List<String> ips=getSpecifiedContentInText("#ip_list > tbody > tr:nth-child(22)+tr > td:nth-child(2)",document);
+        List<String> ports=getSpecifiedContentInText("#ip_list > tbody > tr:nth-child(22)+tr > td:nth-child(3)",document);
+        for (int i=0;i<ips.size();i++){
+//            System.out.println(ips.get(i)+":"+ports.get(i));
+            proxies.put(ips.get(i),ports.get(i));
+        }
+        int flag=(int) (Math.random()*ips.size());
+        System.out.println(flag);
+        int count=0;
+        for (Map.Entry entry:proxies.entrySet()){
+            count++;
+            if (count==flag){
+                host=new HttpHost((String) entry.getKey(),Integer.parseInt((String) entry.getValue()));
+//                System.out.println(entry.getKey()+":"+entry.getValue());
+                break;
+            }
+        }
+//        System.out.println(host.toHostString());
+        return host;
     }
 
 

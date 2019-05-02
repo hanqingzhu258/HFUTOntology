@@ -38,9 +38,7 @@ public class IndividualsAddition {
          * 获取个体对应的类
          */
         OntClass ontClass = ClassHierarchy.getClassByLabel(classLabel, model);
-        if (ontClass==null){
-            return null;
-        }
+
         /**
          * 创建个体
          */
@@ -81,6 +79,7 @@ public class IndividualsAddition {
      */
     public static void addDatatypePropertyToIndividual(Individual individual,OntModel model,String propertyLabel,String propertyValue){
         DatatypeProperty property=SpecialPropertyHandler.getDatatypePropertyByLabel(propertyLabel,model);
+//        System.out.println(individual.getLabel(NSEnum.LANGUAGE.getNs()));
         individual.setPropertyValue(property,model.createLiteral(propertyValue));
     }
 
@@ -202,44 +201,26 @@ public class IndividualsAddition {
 
     /**
      * @Author: hanqing zhu
-     * @Date: 9:55 2019/4/27
+     * @Date: 10:49 2019/4/28
      * @Return:
      * 
-     * @Description: 增添管理学院领导
+     * @Description: 一次性增加某类下的多个个体
      */
-    public static List<Individual> addMSLeaders(OntModel model,List<IndividualSelectorData> data,Document document){
+    public static List<Individual> addSomeIndividuals(OntModel model,List<String> labels,String classLabel){
         List<Individual> individuals=new ArrayList<Individual>();
-        for (IndividualSelectorData isd:data){
-            List<String> cat_names=Crawler.getSpecifiedContentInText(isd.getClassLabelSelector(),document);
-            List<String> responsibilities=Crawler.getSpecifiedContentInText(isd.getLabelSelector(),document);
-            for (int i=0;i<cat_names.size();i++){
-                String [] cat_name=cat_names.get(i).split("：");
-                String classLabel=cat_name[0];
-                String label=cat_name[1];
-                Individual individual=createMulClassIndividuals(model,classLabel,"、",label,NSEnum.HFUT.getNs(),"");
-                addDatatypePropertyToIndividual(individual,model,"职责",responsibilities.get(i));
-                individuals.add(individual);
-            }
-
+        OntClass ontClass=ClassHierarchy.getClassByLabel(classLabel,model);
+        if (ontClass==null){
+            System.out.println("该类不存在！");
+            return individuals;
         }
-        return individuals;
-    }
-
-    /**
-     * @Author: hanqing zhu
-     * @Date: 22:22 2019/4/27
-     * @Return:
-     *
-     * @Description: 增加管理学院教师
-     */
-    public static List<Individual> addMSTeachers(OntModel model,Map<String,List<String>> msts) {
-        List<Individual> individuals=new ArrayList<Individual>();
-        for (Map.Entry entry : msts.entrySet()) {
-            String classLabel= StringParser.removeBrackets((String) entry.getKey());
-            for (String label:(List<String>)entry.getValue()){
-                Individual individual=createIndividual(model,classLabel,label,NSEnum.HFUT.getNs(),"");
-                individuals.add(individual);
+        for (String label:labels){
+            Individual individual=IndividualsHandler.getExistIndividual(classLabel,null,label,model);
+            if (individual==null){
+                individual=createIndividual(model,classLabel,label,NSEnum.HFUT.getNs(),"");
+            }else{
+                IndividualsHandler.putIndividualsToClass(model,classLabel,Arrays.asList(individual));
             }
+            individuals.add(individual);
         }
         return individuals;
     }

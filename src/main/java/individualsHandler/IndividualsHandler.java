@@ -2,6 +2,7 @@ package individualsHandler;
 
 import classesHandler.ClassHierarchy;
 import dataHandler.Crawler;
+import individualsHandler.schools.ManagementSchoolIndividualHandler;
 import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.OntClass;
@@ -54,39 +55,24 @@ public class IndividualsHandler {
          * 增加学校领导
          */
         //学校现任领导
-//        Document currentLeadersWeb = Crawler.getHTML("http://www.hfut.edu.cn/5296/list.htm");
-//        List<IndividualSelectorData> currentLeaderLabelSelector=IndividualFileParser.parseIndividualFile2("data/uniCurrentLeaderSelectorFile.txt");
-//                //增添
-//        List<Individual> individuals = IndividualsAddition.addUniCurrentLeaders(model, currentLeaderLabelSelector, currentLeadersWeb);
-//                //将上述个体增加至指定类别（“学校现任领导”）下
-//        putIndividualsToClass(model, "学校现任领导", individuals);
-//            //学校历任领导
-//        Document pastLeaderWeb = Crawler.getHTML("http://www.hfut.edu.cn/5297/list.htm");
-//        List<IndividualSelectorData> data = IndividualFileParser.parseMulProIndividualFile("data/uniPastLeaderSelectorFile.txt");
-//                //增添
-//        List<Individual> pastLeaders = IndividualsAddition.addUniPastLeaders(model, data, pastLeaderWeb);
-//                //将上述个体增加至指定类别（“学校历任领导”）下
-//        putIndividualsToClass(model, "学校历任领导", pastLeaders);
+        Document currentLeadersWeb = Crawler.getHTML("http://www.hfut.edu.cn/5296/list.htm");
+        List<IndividualSelectorData> currentLeaderLabelSelector=IndividualFileParser.parseIndividualFile2("data/uniCurrentLeaderSelectorFile.txt");
+                //增添
+        List<Individual> individuals = IndividualsAddition.addUniCurrentLeaders(model, currentLeaderLabelSelector, currentLeadersWeb);
+                //将上述个体增加至指定类别（“学校现任领导”）下
+        putIndividualsToClass(model, "学校现任领导", individuals);
+            //学校历任领导
+        Document pastLeaderWeb = Crawler.getHTML("http://www.hfut.edu.cn/5297/list.htm");
+        List<IndividualSelectorData> data = IndividualFileParser.parseMulProIndividualFile("data/uniPastLeaderSelectorFile.txt");
+                //增添
+        List<Individual> pastLeaders = IndividualsAddition.addUniPastLeaders(model, data, pastLeaderWeb);
+                //将上述个体增加至指定类别（“学校历任领导”）下
+        putIndividualsToClass(model, "学校历任领导", pastLeaders);
 
         /**
-         * 增加管院领导
+         * 增加管院相关个体
          */
-        Document msLeadersWeb = Crawler.getHTML("http://som.hfut.edu.cn/glxy/xygk/xyld/index.htm");
-        List<IndividualSelectorData> msLeaderLabelSelector = IndividualFileParser.parseIndividualFile2("data/managementSchoolLeaderSelector.txt");
-        List<Individual> msLeaders = IndividualsAddition.addMSLeaders(model, msLeaderLabelSelector, msLeadersWeb);
-        putIndividualsToClass(model, "管理学院领导", msLeaders);
-
-        /**
-         *  增加管理学院教师
-         */
-        Map<String, List<String>> MSteachersInfo =
-                StringParser.parseMSData(
-                        Crawler.getJson("http://som.hfut.edu.cn/wgp/generalForms/getJsmlDataFormsData.do?ids=1001")
-                );
-        List<Individual> msTeachers=IndividualsAddition.addMSTeachers(model,MSteachersInfo);
-        putIndividualsToClass(model,"管理学院教师",msTeachers);
-
-
+        ManagementSchoolIndividualHandler.handleMSIndividuals(model);
     }
 
     /**
@@ -103,14 +89,16 @@ public class IndividualsHandler {
             Individual testInd=iterator.next();
             if (testInd.getLabel(NSEnum.LANGUAGE.getNs()).equals(label)){
                 boolean judge=true;
-                for (Map.Entry entry:properties.entrySet()){
-                    String propertyLabel=(String)entry.getKey();
-                    String propertyValue=(String)entry.getValue();
-                    Statement statement=individual.getProperty(
-                            SpecialPropertyHandler.getDatatypePropertyByLabel(propertyLabel,model)
-                    );
-                    if (!statement.getLiteral().equals(propertyValue)){
-                        judge=false;
+                if (properties!=null) {
+                    for (Map.Entry entry : properties.entrySet()) {
+                        String propertyLabel = (String) entry.getKey();
+                        String propertyValue = (String) entry.getValue();
+                        Statement statement = individual.getProperty(
+                                SpecialPropertyHandler.getDatatypePropertyByLabel(propertyLabel, model)
+                        );
+                        if (!statement.getLiteral().equals(propertyValue)) {
+                            judge = false;
+                        }
                     }
                 }
                 if (judge){
@@ -137,8 +125,10 @@ public class IndividualsHandler {
         }
 //        System.out.println(ontClass.getLabel(NSEnum.LANGUAGE.getNs()));
         for (Individual individual : individuals) {
+//            System.out.println(individual.getLabel(NSEnum.LANGUAGE.getNs()));
             individual.addOntClass(ontClass);
         }
+//        System.out.println("-----------------------------------");
     }
 
     /**

@@ -22,7 +22,7 @@ public enum NSEnum /*implements CodeEnum*/{
     SCIENCE("_science"),
     COURSE("_course"),
 
-    LANGUAGE("ch")
+    LANGUAGE("en")
     ;
 
     private String ns;

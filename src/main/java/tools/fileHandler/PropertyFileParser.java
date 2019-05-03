@@ -16,7 +16,7 @@ import java.util.List;
 public class PropertyFileParser {
 
     /*public static void main(String[] args) {
-        String fileURL = "data/objectPropertyHierarchy.txt";
+        String fileURL = "ontologyData/objectPropertyHierarchy.txt";
         List<TempPropertyResource> resources=null;
         try {
             resources=parseFile(fileURL);

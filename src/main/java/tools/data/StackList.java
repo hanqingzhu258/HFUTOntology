@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 /**
  * @projectName: HFUTOntology
- * @packageName: tools.data
+ * @packageName: tools.ontologyData
  * @Author: hanqing zhu
  * @Date: 17:18 2019/4/27
  * @Description: 基于LinkedList实现栈

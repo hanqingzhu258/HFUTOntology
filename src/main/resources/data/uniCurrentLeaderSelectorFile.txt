@@ -1,1 +1,0 @@
-#wp_content_w9_0 > div > div > div.ranks：#wp_content_w9_0 > div > div > div.name

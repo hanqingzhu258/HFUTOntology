@@ -16,7 +16,7 @@ import java.util.List;
 public class ClassFileParser {
 
     /*public static void main(String[] args) {
-        String fileURL = "data/classHierarchy.txt";
+        String fileURL = "ontologyData/classHierarchy.txt";
         List<TempClassResource> resources=null;
         try {
             resources=parseFile(fileURL);

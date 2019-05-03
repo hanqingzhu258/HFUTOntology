@@ -3,6 +3,7 @@ package classesHandler;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.util.iterator.ExtendedIterator;
+import org.junit.Test;
 import tools.fileHandler.ClassFileParser;
 import tools.enums.NSEnum;
 import tools.fileHandler.TempClassResource;
@@ -29,7 +30,7 @@ public class ClassHierarchy {
         /**
          *解析文档获取相关类层次结构资源
          */
-        String fileURL="data/classHierarchy.txt";
+        String fileURL= "dataCollection/ontologyData/classHierarchy.txt";
         List<TempClassResource> resources=null;
         try {
             resources= ClassFileParser.parseFile(fileURL);

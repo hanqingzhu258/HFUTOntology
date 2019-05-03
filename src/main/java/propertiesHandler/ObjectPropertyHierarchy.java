@@ -28,7 +28,7 @@ public class ObjectPropertyHierarchy {
         /**
          * 获取文本中的对象属性层次结构信息
          */
-        String fileURL = "data/objectPropertyHierarchy.txt";
+        String fileURL = "dataCollection/ontologyData/objectPropertyHierarchy.txt";
         List<TempPropertyResource> resources=null;
         try {
             resources= PropertyFileParser.parseFile(fileURL);

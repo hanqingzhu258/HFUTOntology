@@ -3,23 +3,17 @@ package individualsHandler;
 import classesHandler.ClassHierarchy;
 import dataHandler.Crawler;
 import individualsHandler.schools.ManagementSchoolIndividualHandler;
-import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
-import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Statement;
-import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.jsoup.nodes.Document;
-import propertiesHandler.DatatypePropertyHierarchy;
 import propertiesHandler.SpecialPropertyHandler;
-import tools.StringParser;
 import tools.data.IndividualSelectorData;
 import tools.enums.NSEnum;
 import tools.fileHandler.IndividualFileParser;
 
-import javax.print.Doc;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -46,8 +40,8 @@ public class IndividualsHandler {
         //获取学校机构网页内容
         Document organizationWeb = Crawler.getHTML("http://www.hfut.edu.cn/5287/list.htm");
         //类别及选择器
-        /*Map<String, String> organizations = IndividualFileParser.parseIndividualFile("data/organizationSelectorFile.txt");*/
-        List<IndividualSelectorData> organizations = IndividualFileParser.parseIndividualFile2("data/organizationSelectorFile.txt");
+        /*Map<String, String> organizations = IndividualFileParser.parseIndividualFile("ontologyData/organizationSelectorFile.txt");*/
+        List<IndividualSelectorData> organizations = IndividualFileParser.parseIndividualFile2("dataCollection/ontologyData/organizationSelectorFile.txt");
         //增添对应实体
         IndividualsAddition.addCollections(model, organizations, organizationWeb);
 
@@ -56,14 +50,14 @@ public class IndividualsHandler {
          */
         //学校现任领导
         Document currentLeadersWeb = Crawler.getHTML("http://www.hfut.edu.cn/5296/list.htm");
-        List<IndividualSelectorData> currentLeaderLabelSelector=IndividualFileParser.parseIndividualFile2("data/uniCurrentLeaderSelectorFile.txt");
+        List<IndividualSelectorData> currentLeaderLabelSelector=IndividualFileParser.parseIndividualFile2("dataCollection/ontologyData/uniCurrentLeaderSelectorFile.txt");
                 //增添
         List<Individual> individuals = IndividualsAddition.addUniCurrentLeaders(model, currentLeaderLabelSelector, currentLeadersWeb);
                 //将上述个体增加至指定类别（“学校现任领导”）下
         putIndividualsToClass(model, "学校现任领导", individuals);
             //学校历任领导
         Document pastLeaderWeb = Crawler.getHTML("http://www.hfut.edu.cn/5297/list.htm");
-        List<IndividualSelectorData> data = IndividualFileParser.parseMulProIndividualFile("data/uniPastLeaderSelectorFile.txt");
+        List<IndividualSelectorData> data = IndividualFileParser.parseMulProIndividualFile("dataCollection/ontologyData/uniPastLeaderSelectorFile.txt");
                 //增添
         List<Individual> pastLeaders = IndividualsAddition.addUniPastLeaders(model, data, pastLeaderWeb);
                 //将上述个体增加至指定类别（“学校历任领导”）下

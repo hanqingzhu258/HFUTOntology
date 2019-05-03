@@ -19,8 +19,9 @@ public class FileHandler {
      * @Description: 获取相应的文件输入流，一次读取一行
      */
     public static BufferedReader getBufferedReader(String fileUrl) throws Exception{
-        ClassLoader classLoader = FileHandler.class.getClassLoader();
-        File file = new File(classLoader.getResource(fileUrl).getFile());
+        /*ClassLoader classLoader = FileHandler.class.getClassLoader();
+        File file = new File(classLoader.getResource(fileUrl).getFile());*/
+        File file=new File(fileUrl);
         BufferedReader reader = new BufferedReader(new FileReader(file));
         return reader;
     }

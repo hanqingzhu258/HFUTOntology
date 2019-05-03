@@ -31,7 +31,7 @@ public class ManagementSchoolIndividualHandler {
          * 增加管院领导
          */
         Document msLeadersWeb = Crawler.getHTML("http://som.hfut.edu.cn/glxy/xygk/xyld/index.htm");
-        List<IndividualSelectorData> msLeaderLabelSelector = IndividualFileParser.parseIndividualFile2("data/managementSchoolLeaderSelector.txt");
+        List<IndividualSelectorData> msLeaderLabelSelector = IndividualFileParser.parseIndividualFile2("dataCollection/ontologyData/managementSchoolLeaderSelector.txt");
         List<Individual> msLeaders = addMSLeaders(model, msLeaderLabelSelector, msLeadersWeb);
         IndividualsHandler.putIndividualsToClass(model, "管理学院领导", msLeaders);
 

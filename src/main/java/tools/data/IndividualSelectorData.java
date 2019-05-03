@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @projectName: HFUTOntology
- * @packageName: tools.data
+ * @packageName: tools.ontologyData
  * @Author: hanqing zhu
  * @Date: 21:22 2019/4/25
  * @Description:

@@ -1,35 +1,37 @@
-package dataMining;
+package dataMining.newWordFinder;
 
-import dataMining.newWordFinder.NewWordFinder;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
- * @projectName: newWordFinder
- * @packageName: PACKAGE_NAME
+ * @projectName: HFUTOntology
+ * @packageName: dataMining.newWordFinder
  * @Author: hanqing zhu
- * @Date: 10:05 2019/5/3
+ * @Date: 16:04 2019/5/3
  * @Description:
  */
-public class TestMain {
+public class NewWordFinderTest {
 
-    public static final Logger logger= LoggerFactory.getLogger(TestMain.class);
+    public static Logger logger= LoggerFactory.getLogger(NewWordFinderTest.class);
 
     @Test
-    public void testNewWordFinder(){
-        String argu="";
+    @Before
+    public void init() throws Exception {
 
-        int init_flag= NewWordFinder.init(argu);
-        if (init_flag==0){
-            System.out.println("初始化失败！");
-            return;
-        }else{
-            System.out.println("初始化成功！");
-        }
+        String argu="";
+        int init_flag=NewWordFinder.init(argu);
+        assertEquals(1,init_flag);
+
+    }
+
+    @Test
+    public void getNewWords() throws Exception {
 
         String sInput="东方网12月4日消息：2009年10月21日,辽宁省阜新市委\n" +
                 "收到举报信,举报以付玉红为首吸毒、强奸、聚众淫乱,阜新市委政法委副书记于洋等参与\n" +
@@ -45,24 +47,24 @@ public class TestMain {
                 "委会已依法停止其代表资格,阜新市公安局对其进行刑事拘留,并对同案人尹东方进行监视\n" +
                 "居住。现侦查工作正在进行中";
         String nativeBytes=null;
-        try{
-            nativeBytes=NewWordFinder.getNewWords(sInput,5,false);
-//            NewWordFinder.result2UserDict();
-            System.out.println(nativeBytes);
-            logger.info("this is a test of slf4j");
-            System.out.println(
-                    NewWordFinder.getFileNewWords("dataCollection/datasource/HFUT0.txt",10,false)
-            );
+        nativeBytes=NewWordFinder.getNewWords(sInput,5,false);
+        assertNotNull(nativeBytes);
+        logger.info(nativeBytes);
 
-            NewWordFinder.exit();
-        }catch (Exception e){
 
-        }
     }
 
-//    public static void main(String[] args) {
-//        logger.info("ssssssssssssssssssssssss");
-//    }
+    @Test
+    public void getFileNewWords() throws Exception {
+        String fileNativeBytes=NewWordFinder.getFileNewWords("dataCollection/datasource/HFUT0.txt",10,false);
+        assertNotNull(fileNativeBytes);
+        logger.info(fileNativeBytes);
+    }
 
+    @Test
+    @After
+    public void exit() throws Exception {
+        NewWordFinder.exit();
+    }
 
 }

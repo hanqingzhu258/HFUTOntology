@@ -100,7 +100,7 @@ public class HFUTOntologyCreation {
      * @Description: 保存model
      */
     public static void saveModel(OntModel model){
-        String fileUrl="dataCollection/result/result.owl";
+        String fileUrl="dataCollection/result/HFUTOntology.owl";
         try {
             BufferedWriter writer = FileHandler.getBufferedWriter(fileUrl);
             model.write(writer);

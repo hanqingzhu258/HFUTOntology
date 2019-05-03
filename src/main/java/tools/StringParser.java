@@ -192,4 +192,17 @@ public class StringParser {
         return result;
     }
 
+    /**
+     * @Author: hanqing zhu
+     * @Date: 17:36 2019/5/3
+     * @Return:
+     *
+     * @Description: list输出字符串
+     */
+    public static void printListToString(List<String> list){
+        for (String term:list){
+            System.out.println(term);
+        }
+    }
+
 }

@@ -97,6 +97,11 @@ public class NlpirMethodTest {
 
     @Test
     public void NLPIR_DelUsrWord() throws Exception {
+
+//        NlpirMethod.NLPIR_DelUsrWord("合肥工业大学");
+        String text="合肥工业大学也大学爸爸的精神病健康才八点上课就不山大看就看";
+        String result=NlpirMethod.NLPIR_ParagraphProcess(text,1);
+        logger.info(result);
     }
 
     @Test

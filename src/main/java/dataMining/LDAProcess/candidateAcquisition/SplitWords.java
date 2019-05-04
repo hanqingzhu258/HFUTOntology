@@ -1,4 +1,4 @@
-package dataMining;
+package dataMining.LDAProcess.candidateAcquisition;
 
 import dataHandler.FileHandler;
 import dataMining.ICTCLAS.NlpirMethod;
@@ -56,7 +56,7 @@ public class SplitWords {
         result2UserDict(result);
 
         //导入自定义词典
-        NlpirMethod.NLPIR_ImportUserDict("dataCollection/dics/HFUTDictory.txt",false);
+//        NlpirMethod.NLPIR_ImportUserDict("dataCollection/dics/HFUTDictory.txt",false);
 
         //遍历文集依据词典进行分词操作，形成领域术语集，保存在不同的文件中
         String path = "dataCollection/datasource/";

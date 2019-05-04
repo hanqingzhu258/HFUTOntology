@@ -1,4 +1,4 @@
-package dataMining;
+package dataMining.LDAProcess.candidateAcquisition;
 
 import dataHandler.FileHandler;
 import org.slf4j.Logger;
@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import tools.fileHandler.GeneralFileHandler;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,9 +18,9 @@ import java.util.Set;
  * @Date: 11:16 2019/5/4
  * @Description:
  */
-public class TermsFiltration {
+public class StopWordsFiltration {
 
-    public static Logger logger= LoggerFactory.getLogger(TermsFiltration.class);
+    public static Logger logger= LoggerFactory.getLogger(StopWordsFiltration.class);
 
     public static void main(String [] args){
 
@@ -53,7 +52,7 @@ public class TermsFiltration {
 
         List<String> result=new ArrayList<String>();
 
-        String stopWordsDicPath="dataCollection/dics/stopWordsDic.txt";
+        String stopWordsDicPath="dataCollection/dics/updatedStopWordsDic.txt";
         String termSetPath="dataCollection/result/splitWordResult/domainTermSet.txt";
         Set<String> stopWordsDic=new HashSet<String>();
         //加载停用词表

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<LJCluster-Result>
+
+<clusnum>30</clusnum>
+
+<clus id="0">
+	<feature>安徽 凤凰 中国 </feature>
+	<docs num="2">
+		<doc>term145</doc>
+		<doc>term84</doc>
+	</docs>
+</clus>
+
+<clus id="1">
+	<feature>安徽省 </feature>
+	<docs num="2">
+		<doc>term116</doc>
+		<doc>term66</doc>
+	</docs>
+</clus>
+
+<clus id="2">
+	<feature>工大 中共 </feature>
+	<docs num="2">
+		<doc>term10</doc>
+		<doc>term132</doc>
+	</docs>
+</clus>
+
+<clus id="3">
+	<feature>合肥 高考 </feature>
+	<docs num="2">
+		<doc>term124</doc>
+		<doc>term148</doc>
+	</docs>
+</clus>
+
+<clus id="4">
+	<feature>录取 分数线 </feature>
+	<docs num="2">
+		<doc>term72</doc>
+		<doc>term70</doc>
+	</docs>
+</clus>
+
+<clus id="5">
+	<feature>报考 </feature>
+	<docs num="1">
+		<doc>term44</doc>
+	</docs>
+</clus>
+
+<clus id="6">
+	<feature>报名 </feature>
+	<docs num="1">
+		<doc>term60</doc>
+	</docs>
+</clus>
+
+<clus id="7">
+	<feature>北京 </feature>
+	<docs num="1">
+		<doc>term89</doc>
+	</docs>
+</clus>
+
+<clus id="8">
+	<feature>本科 </feature>
+	<docs num="1">
+		<doc>term108</doc>
+	</docs>
+</clus>
+
+<clus id="9">
+	<feature>分享 </feature>
+	<docs num="1">
+		<doc>term41</doc>
+	</docs>
+</clus>
+
+<clus id="10">
+	<feature>凤凰 安徽 </feature>
+	<docs num="1">
+		<doc>term84</doc>
+	</docs>
+</clus>
+
+<clus id="11">
+	<feature>辅导员 </feature>
+	<docs num="1">
+		<doc>term128</doc>
+	</docs>
+</clus>
+
+<clus id="12">
+	<feature>高考 </feature>
+	<docs num="1">
+		<doc>term123</doc>
+	</docs>
+</clus>
+
+<clus id="13">
+	<feature>简介 </feature>
+	<docs num="1">
+		<doc>term64</doc>
+	</docs>
+</clus>
+
+<clus id="14">
+	<feature>教育部 </feature>
+	<docs num="1">
+		<doc>term101</doc>
+	</docs>
+</clus>
+
+<clus id="15">
+	<feature>考生 </feature>
+	<docs num="1">
+		<doc>term114</doc>
+	</docs>
+</clus>
+
+<clus id="16">
+	<feature>科研 </feature>
+	<docs num="1">
+		<doc>term98</doc>
+	</docs>
+</clus>
+
+<clus id="17">
+	<feature>能量 </feature>
+	<docs num="1">
+		<doc>term106</doc>
+	</docs>
+</clus>
+
+<clus id="18">
+	<feature>排名 学位 </feature>
+	<docs num="1">
+		<doc>term87</doc>
+	</docs>
+</clus>
+
+<clus id="19">
+	<feature>平台 </feature>
+	<docs num="1">
+		<doc>term28</doc>
+	</docs>
+</clus>
+
+<clus id="20">
+	<feature>硕士 </feature>
+	<docs num="1">
+		<doc>term119</doc>
+	</docs>
+</clus>
+
+<clus id="21">
+	<feature>校友 </feature>
+	<docs num="1">
+		<doc>term77</doc>
+	</docs>
+</clus>
+
+<clus id="22">
+	<feature>学位 </feature>
+	<docs num="1">
+		<doc>term86</doc>
+	</docs>
+</clus>
+
+<clus id="23">
+	<feature>学校 安徽 </feature>
+	<docs num="1">
+		<doc>term146</doc>
+	</docs>
+</clus>
+
+<clus id="24">
+	<feature>学院 研究生 </feature>
+	<docs num="1">
+		<doc>term135</doc>
+	</docs>
+</clus>
+
+<clus id="25">
+	<feature>研究生 </feature>
+	<docs num="1">
+		<doc>term134</doc>
+	</docs>
+</clus>
+
+<clus id="26">
+	<feature>招生 学院 </feature>
+	<docs num="1">
+		<doc>term136</doc>
+	</docs>
+</clus>
+
+<clus id="27">
+	<feature>中共 </feature>
+	<docs num="1">
+		<doc>term9</doc>
+	</docs>
+</clus>
+
+<clus id="28">
+	<feature>中国 </feature>
+	<docs num="1">
+		<doc>term144</doc>
+	</docs>
+</clus>
+
+<clus id="29">
+	<feature>录取分数线 分数线 录取 </feature>
+	<docs num="1">
+		<doc>term72</doc>
+	</docs>
+</clus>
+
+</LJCluster-Result>

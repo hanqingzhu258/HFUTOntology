@@ -211,7 +211,7 @@ public class StringParser {
      * @Author: hanqing zhu
      * @Date: 15:37 2019/5/4
      * @Return:
-     * 
+     *
      * @Description: 去除字符串中的空格（停用词处理）
      */
     public static String removeBlank(String  content){

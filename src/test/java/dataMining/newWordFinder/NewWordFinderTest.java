@@ -67,4 +67,9 @@ public class NewWordFinderTest {
         NewWordFinder.exit();
     }
 
+    @Test
+    public void result2UserDict() throws Exception{
+        
+    }
+
 }

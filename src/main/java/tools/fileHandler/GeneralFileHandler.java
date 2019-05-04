@@ -1,7 +1,11 @@
 package tools.fileHandler;
 
+import dataHandler.FileHandler;
+
+import java.io.BufferedWriter;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -37,6 +41,25 @@ public class GeneralFileHandler {
         }
 
         return fileNames;
+    }
+
+    /**
+     * @Author: hanqing zhu
+     * @Date: 11:43 2019/5/4
+     * @Return:
+     *
+     * @Description: 将List写入文件
+     */
+    public static void writeListToFile(String path,List<String> list){
+        try {
+            BufferedWriter writer = FileHandler.getBufferedWriter(path);
+            for(String l:list){
+                writer.write(l+"\r");
+            }
+            writer.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

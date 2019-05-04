@@ -51,7 +51,7 @@ public class NlpirMethodTest {
     public void NLPIR_FileProcess() throws Exception {
 
         NlpirMethod.NLPIR_FileProcess("dataCollection/datasource/HFUT0.txt",
-                "dataCollection/result/testResult0.txt", 0);
+                "dataCollection/result/testText.txt", 0);
 
     }
 

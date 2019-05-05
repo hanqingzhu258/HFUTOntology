@@ -1,0 +1,78 @@
+合肥工业大学本体构建程序详述：
+一、简介
+    该程序是以“合肥工业大学”为目标领域，进行的半自动化本体构建程序。
+    程序运用NLP相关技术，以张华平NLPIR为主要工具，进行网络资讯的数据预处理，并通过聚类对处理后的关键词进行分类整理，以为本体模式层概念的选取提供参考。
+    在具体本体构建过程中，主要以Jena作为框架，分别从“class”、“property”、“individual”等多个层次对本体进行建模。
+    程序数据来源主要有合肥工业大学官网（http://www.hfut.edu.cn/）及百度资讯（百度一下的“资讯”结果）相关数据，依托网络爬虫、html解析器等工具。
+    该程序是一个maven程序，集成了Junit单元测试和slf4j+log4j日志工具，以及lombok代码简化工具，并以git作为版本控制工具。
+    项目托管在github上：https://github.com/hanqingzhu258/HFUTOntology
+
+二、程序流程：
+
+    整体流程：资讯获取->数据挖掘（新词发现->分词->停用词过滤->词性过滤->低频词过滤->聚类）->模式层创建（class定义->property定义）->数据层添加（individual添加）->本体保存
+
+    1.资讯获取
+        （1）通过网络爬虫获取百度资讯中与“合肥工业大学”相关的数据，并分别保存为txt文件。
+        （2）class：dataMining.corpusAcquisition.HFUTAdvisory
+        （3）result：dataCollection/datasource
+    2.新词发现
+        （1）利用张华平NLPIR-NewWordFinder工具，对每个资讯文件进行处理，构建可能的领域专业词汇并保存到用户词典中。
+        （2）class：dataMining.candidateAcquisition.NewWordFinder
+        （3）result：Data/UserDict.pdat
+    3.分词
+        （1）利用张华平NLPIR-ICTCLAS工具，并根据“新词发现”中产生的用户自定义词典，对每个资讯文件进行分词。
+        （2）class：dataMining.candidateAcquisition.SplitWords
+        （3）result：dataCollection/result/splitWordResult/independentResults（每个文本对应的分词结果）
+                            dataCollection/result/splitWordResult/domainTermSet.txt（分词的词汇集合，每个词汇一行）
+                            dataCollection/result/splitWordResult/resultCombination.txt（分词结果集，每个文本的分词结果一行）
+    4.停用词过滤
+        （1）通过引入自定义停用词词典，对上述分词结果（每个词汇一行），进行过滤。
+        （2）class：dataMining.candidateAcquisition.StopWordsFiltration
+        （3）result：dataCollection/result/filterTermsResult/stopWordsFilterTermsSet.txt
+    5.词性过滤
+        （1）只保留名词（/n）和动词（/v），并进行乱码词汇的过滤。
+        （2）class：dataMining.candidateAcquisition.PartOfSpeechFiltration
+        （3）result：dataCollection/result/filterTermsResult/partOfSpeechTaggingFilterTermsSet.txt
+    6.低频词过滤
+        （1）通过统计上述结果中重复词汇的个数，进行词频统计，并将重复次数大于域值（threshold=50）的词汇挑选出来。
+        （2）class：dataMining.candidateAcquisition.LowFrequencyWordFiltration
+        （3）result：dataCollection/result/filterTermsResult/lowFrequencyWordFilterTermsSet.txt
+    7.聚类
+        （1）利用张华平NLPIR-Cluster工具对上述文本进行聚类。
+        （2）class：dataMining.cluster.ClusterProcess
+        （3）result：dataCollection/result/clusterResult.txt
+    8.class定义
+        （1）参考上述聚类结果、相关参考文献以及老师教授等的意见，进行class层次结构的创建。
+        （2）class：classesHandler.ClassHierarchy
+        （3）reference：dataCollection/ontologyData/classHierarchy.txt
+    9.property定义
+        （1）依靠自身知识储备，进行对象属性和数据属性的创建，以及特殊属性的处理（主要指属性间除了上下级关系间的其它关系）。
+        （2）class：propertiesHandler.DatatypePropertyHierarchy
+                   propertiesHandler.ObjectPropertyHierarchy
+                   propertiesHandler.SpecialPropertyHandler
+        （3）reference：dataCollection/ontologyData/dataPropertyHierarchy.txt
+                       dataCollection/ontologyData/objectPropertyHierarchy.txt
+    10.individual添加
+        （1）根据上述模式层定义，依托网络爬虫从合肥工业大学官网获取相关数据，并向本体中进行添加（关系主要依靠手动确定）。
+        （2）class：individualsHandler.IndividualsHandler
+        （3）reference：dataCollection/ontologyData/managementSchoolLeaderSelector.txt
+                       dataCollection/ontologyData/uniCurrentLeaderSelectorFile.txt
+                       dataCollection/ontologyData/uniPastLeaderSelectorFile.txt
+                       dataCollection/ontologyData/organizationSelectorFile.txt
+    11.本体保存
+        （1）将上述过程形成的本体model保存成owl文件。
+        （2）class：HFUTOntologyCreation
+        （3）result：dataCollection/result/HFUTOntology.owl（可导入protege进行再处理）
+
+三、可能的问题
+    1.张华平NLPIR工具组件的使用：
+        “.dll”文件位置配置；
+        “Data”文件夹要放在程序根目录下；
+        授权文件要及时更新（invalidate license）；
+        莫名其妙的乱码可能是导入的“.dll”文件不对，建议重新导入；
+        file can not open 可能是路径写错；
+        导入自定义用户词典无效，暂未弄清原因。但通过逐词向原用户词典添加词汇，暂时解决该问题。怀疑是原数据文本文件编码的问题。
+    2.停用词表无法正常使用（过滤无效）：检查每个停用词后是否有多余的空格。
+    3.log4j无法使用：
+        导入正确的依赖包；
+        log4j.properties属性文件的配置要正确。

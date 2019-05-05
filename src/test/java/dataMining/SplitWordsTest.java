@@ -1,6 +1,7 @@
 package dataMining;
 
 import dataMining.ICTCLAS.NlpirMethod;
+import dataMining.candidateAcquisition.NewWordFinder;
 import dataMining.candidateAcquisition.SplitWords;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -26,10 +27,10 @@ public class SplitWordsTest {
 
         //新词发现结果
         String result=null;
-        result= SplitWords.getNewWordsFinderResult(false);
+        result= NewWordFinder.getNewWordsFinderResult(false);
 
         //保存为用户自定义词典
-        SplitWords.result2UserDict(result);
+        NewWordFinder.result2UserDict(result);
 
         //导入自定义词典
         NlpirMethod.NLPIR_ImportUserDict("dataCollection/dics/HFUTDictory.txt",false);
